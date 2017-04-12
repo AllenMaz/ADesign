@@ -1,0 +1,42 @@
+.acontainer{
+    width:90%;
+    min-height: 800px;
+    height: 100%;
+    background-color:lightblue;
+    margin:50px auto;
+    z-index: -10;
+    padding:10px;
+}
+.testdiv{
+    width:200px;
+    height:200px;
+    background-color: white;
+    position: relative;
+}
+
+.drag-section{
+    cursor:move;
+    border:solid 1px orangered;
+    position: relative;
+}
+.dragblock{
+    width:6px;
+    height:6px;
+    border:solid 1px black;
+    position: absolute;
+}
+.nw-dragblock{
+    cursor: nw-resize;
+    left: -3px;
+    top: -3px;
+}
+.n-dragblock{
+    cursor: n-resize;
+    left: 50%;
+    top: -3px;
+}
+.ne-dragblock{
+    cursor: ne-resize;
+    right: -3px;
+    top:-3px;
+}

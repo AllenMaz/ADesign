@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADesign</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/core/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+    <div class="acontainer">
+        <div class="testdiv"></div>
+        <div class="testdiv"></div>
+        <div class="testdiv"></div>
+
+    </div>
+
+    <script>
+        (function(){
+            var dragElement;
+            $(".acontainer>div").mouseover(function(){
+                dragElement = this;
+                AddDragSection(this);
+
+
+            }).mouseout(function(){
+                RemoveDragSection(this);
+
+            });
+
+
+            function AddDragSection(dragElement){
+                var dragSection = document.createElement("div");
+                dragSection.setAttribute("class","drag-section");
+                $(dragElement).wrap(dragSection);
+
+                var dragNWBlock = document.createElement("div");
+                dragNWBlock.setAttribute("class","dragblock nw-dragblock");
+                var dragNBlock = document.createElement("div");
+                dragNBlock.setAttribute("class","dragblock n-dragblock");
+                var dragNEBlock = document.createElement("div");
+                dragNEBlock.setAttribute("class","dragblock ne-dragblock");
+
+                $(".drag-section").append(dragNWBlock);
+                $(".drag-section").append(dragNBlock);
+                $(".drag-section").append(dragNEBlock);
+                $(".drag-section").width(dragElement.offsetWidth);
+                return dragSection;
+            }
+
+            function RemoveDragSection(dragElement){
+                $(dragElement).parent(".drag-section").replaceWith(dragElement);
+            }
+        })()
+    </script>
+</body>
+</html>
