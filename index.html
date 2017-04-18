@@ -6,19 +6,40 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="js/core/jquery-3.2.1.min.js"></script>
 
+
 </head>
 <body>
     <div class="acontainer">
-        <div class="testdiv"></div>
-        <div class="testdiv"></div>
-        <div class="testdiv"></div>
+        <div class="drag-element testdiv"></div>
+        <div style="margin:50px 0px;"></div>
+        <div class="drag-element testdiv"></div>
+        <div class="drag-element testdiv"></div>
 
     </div>
 
     <script>
         (function(){
             var dragElement;
-            $(".acontainer>div").mouseover(function(){
+            /*$(".acontainer>div").click(function(e){
+                dragElement = this;
+                AddDragSection(this);
+
+
+            });*/
+            $(".acontainer").not('.drag-element').bind("click",function () {
+                debugger
+            })
+            $(".acontainer:not('.drag-element')").bind("click", function( e ) {
+                var aa =$( e.target ).closest(".drag-section");
+                //清空所有拖拽状态
+                RemoveAllDragSection();
+
+                //判断当前选中的区域是否是可拖拽
+                var canDrag = $(e.target).hasClass("drag-element");
+                if(canDrag)
+                    AddDragSection(e.target);
+            });
+            /*$(".acontainer>div").mouseover(function(){
                 dragElement = this;
                 AddDragSection(this);
 
@@ -26,10 +47,14 @@
             }).mouseout(function(){
                 RemoveDragSection(this);
 
-            });
+            });*/
 
 
             function AddDragSection(dragElement){
+
+                if($(dragElement).parent(".drag-section").length >0){
+                    return false;
+                }
                 var dragSection = document.createElement("div");
                 dragSection.setAttribute("class","drag-section");
                 $(dragElement).wrap(dragSection);
@@ -40,14 +65,35 @@
                 dragNBlock.setAttribute("class","dragblock n-dragblock");
                 var dragNEBlock = document.createElement("div");
                 dragNEBlock.setAttribute("class","dragblock ne-dragblock");
+                var dragWEBlock = document.createElement("div");
+                dragWEBlock.setAttribute("class","dragblock w-dragblock");
+                var dragSWEBlock = document.createElement("div");
+                dragSWEBlock.setAttribute("class","dragblock sw-dragblock");
+                var dragSBlock = document.createElement("div");
+                dragSBlock.setAttribute("class","dragblock s-dragblock");
+                var dragSEBlock = document.createElement("div");
+                dragSEBlock.setAttribute("class","dragblock se-dragblock");
+                var dragEBlock = document.createElement("div");
+                dragEBlock.setAttribute("class","dragblock e-dragblock");
 
                 $(".drag-section").append(dragNWBlock);
                 $(".drag-section").append(dragNBlock);
                 $(".drag-section").append(dragNEBlock);
+                $(".drag-section").append(dragWEBlock);
+                $(".drag-section").append(dragSWEBlock);
+                $(".drag-section").append(dragSBlock);
+                $(".drag-section").append(dragSEBlock);
+                $(".drag-section").append(dragEBlock);
+
                 $(".drag-section").width(dragElement.offsetWidth);
                 return dragSection;
             }
+            function RemoveAllDragSection(){
+                $(".drag-section").each(function(){
 
+                    RemoveDragSection($(this).children(":first"));
+                });
+            }
             function RemoveDragSection(dragElement){
                 $(dragElement).parent(".drag-section").replaceWith(dragElement);
             }
